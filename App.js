@@ -20,9 +20,11 @@ import Notification from "./screen/Account/Notification";
 import Profile from "./screen/Account/Profile";
 import MyOrders from "./screen/Account/MyOrders";
 import Dashboard from "./screen/Admin/Dashboard";
-import AddProduct from "./screen/Product/AddProduct";
 
+import AddProduct from "./screen/Product/AddProduct";
+import showProducts from './screen/Product/ShowProducts'
 import ProductManager from "./screen/Product/ProductManager";
+import UpdateProduct from './screen/Product/UpdateProduct'
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +59,20 @@ export default function App() {
             name="add-product"
             component={AddProduct}
             options={{ headerTitle: "Add Product", headerTitleAlign: "center" }}
+          />
+
+          {/* products manager */}
+          <Stack.Screen
+            name="show-products"
+            component={showProducts}
+            options={{ headerTitle: "Products Manager", headerTitleAlign: "center" }}
+          />
+
+          {/* update product */}
+          <Stack.Screen
+            name="update-product"
+            component={UpdateProduct}
+            options={{ headerTitle: "Update Product", headerTitleAlign: "center" }}
           />
 
           <Stack.Screen

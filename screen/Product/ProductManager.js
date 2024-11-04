@@ -12,7 +12,7 @@ const ProductManager = () => {
   };
 
   const managerProducts = () => {
-    navigation.navigate("add-product");
+    navigation.navigate("show-products");
   };
 
   return (

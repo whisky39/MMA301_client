@@ -1,13 +1,12 @@
 import axios from "axios";
 
+import { port } from "../../ultils";
+
 // POST CREATE PRODUCT
 export const createProduct = async (data) => {
   // data ở phía sau đường link == truyền data dưới dạng object body
   try {
-    const res = await axios.post(
-      `${"http://192.168.1.16:8080/api"}/product/create-product`,
-      data
-    );
+    const res = await axios.post(`${port()}/product/create-product`, data);
     return res?.data;
   } catch (error) {
     console.log(error);
@@ -15,17 +14,16 @@ export const createProduct = async (data) => {
 };
 
 // GET ALL PRODUCT
-export const getAllProduct = async (search, limit) => {
-  let res = {};
+export const getAllProduct = async (search) => {
+  console.log("port ", port());
+  let res = [];
   if (search?.length > 0) {
-    res = await axios.get(
-      `${"http://192.168.1.7:8080/api"}/product/get-all`
-    );
+    res = await axios.get(`${port()}/product/get-all`);
   } else {
-    res = await axios.get(
-      `${"http://192.168.1.7:8080/api"}/product/get-all`
-    );
+    res = await axios.get(`${port()}/product/get-all`);
   }
+
+  console.log(res);
   return res?.data;
 };
 
@@ -49,9 +47,7 @@ export const getAllCategory = async () => {
 
 // GET DETAILS PRODUCT BY ID
 export const getDetailsProduct = async (id) => {
-  const res = await axios.get(
-    `${'http://192.168.1.7:8080/api'}/product/${id}`
-  );
+  const res = await axios.get(`${"http://192.168.1.7:8080/api"}/product/${id}`);
   return res?.data;
 };
 

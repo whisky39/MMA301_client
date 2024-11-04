@@ -1,5 +1,6 @@
 // screens/AddExpenseScreen.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   View,
   TextInput,
@@ -13,8 +14,15 @@ import {
 import * as productServices from "../../src/services/productServices";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import Layout from "../../components/Layout/Layout";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AddProductScreen = () => {
+const UpdateProduct = ({ route }) => {
+  const { id } = route.params;
+  // get product
+  const [updateProduct, setUpdateProduct] = useState({});
+
+  const navigation = useNavigation();
+  const [allProduct, setAllProduct] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(new Date());
@@ -23,7 +31,28 @@ const AddProductScreen = () => {
 
   const [imageUri, setImageUri] = useState(null);
 
-  const navigation = useNavigation();
+  useEffect(() => {
+    if (id) {
+      getDataFromAsycn();
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (allProduct) {
+      // console.log("idProduct ", idProduct);
+      const detailsProduct = allProduct.find((product) => product._id === id);
+      if (detailsProduct) {
+        setUpdateProduct({ ...detailsProduct });
+      }
+    }
+  }, [allProduct]);
+
+  const getDataFromAsycn = async () => {
+    const data = await AsyncStorage.getItem("products");
+    if (data) {
+      setAllProduct(JSON.parse(data));
+    }
+  };
 
   const handleAddProduct = async () => {
     //  validate data input
@@ -68,7 +97,7 @@ const AddProductScreen = () => {
         >
           <TextInput
             placeholder="Product Name"
-            value={name}
+            value={updateProduct?.name}
             onChangeText={setName}
           />
         </View>
@@ -83,7 +112,7 @@ const AddProductScreen = () => {
         >
           <TextInput
             placeholder="Description"
-            value={description}
+            value={updateProduct?.description}
             onChangeText={setDescription}
           />
         </View>
@@ -96,7 +125,7 @@ const AddProductScreen = () => {
             paddingBottom: 10,
           }}
           placeholder="Category"
-          value={category}
+          value={updateProduct?.category}
           onChangeText={setCategory}
         />
 
@@ -110,7 +139,7 @@ const AddProductScreen = () => {
         >
           <TextInput
             placeholder="Price"
-            value={price}
+            value={updateProduct?.price}
             onChangeText={setPrice}
             keyboardType="numeric"
           />
@@ -125,7 +154,7 @@ const AddProductScreen = () => {
             marginBottom: 10,
           }}
           placeholder="Stock"
-          value={stock}
+          value={updateProduct?.stock}
           onChangeText={setStock}
           keyboardType="numeric"
         />
@@ -156,4 +185,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddProductScreen;
+export default UpdateProduct;
