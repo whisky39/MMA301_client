@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import { port } from "../../ultils";
 
 // POST CREATE PRODUCT
@@ -15,15 +14,12 @@ export const createProduct = async (data) => {
 
 // GET ALL PRODUCT
 export const getAllProduct = async (search) => {
-  console.log("port ", port());
   let res = [];
   if (search?.length > 0) {
     res = await axios.get(`${port()}/product/get-all`);
   } else {
     res = await axios.get(`${port()}/product/get-all`);
   }
-
-  console.log(res);
   return res?.data;
 };
 
@@ -39,9 +35,7 @@ export const getProductType = async (idP, page, limit) => {
 
 // GET ALL CATEGORY
 export const getAllCategory = async () => {
-  const res = await axios.get(
-    `${"http://192.168.1.7:8080/api"}/cat/get-all`
-  );
+  const res = await axios.get(`${"http://192.168.1.7:8080/api"}/cat/get-all`);
   return res?.data;
 };
 
@@ -52,26 +46,24 @@ export const getDetailsProduct = async (id) => {
 };
 // GET DETAILS PRODUCT BY ID
 export const getProductsByCate = async (cate) => {
+
+  console.log("cate ", cate);
+  
   const res = await axios.get(
-    `${'http://192.168.1.7:8080/api'}/product/get/${cate}`
+    `${"http://192.168.1.7:8080/api"}/product/get/${cate}`
   );
   return res?.data;
 };
 
 // POST UPDATE PRODUCT BY ID
-export const upDateProducts = async (id, access_token, data) => {
+export const upDateProducts = async (id, data) => {
   try {
-    console.log("data ", data);
+
     // thông qua id , và access_token chỉ cho phép update product bởi admin.
-    const res = await axiosJWT.put(
-      `${process.env.REACT_APP_API_URL}/product/update/${id}`,
-      data,
-      {
-        headers: {
-          token: `Bearer ${access_token}`,
-        },
-      }
-    );
+    const res = await axios.put(`${port()}/product/${id}`, data);
+
+    console.log("res ", res);
+
     return res?.data;
   } catch (error) {
     console.log("error :", error);
@@ -82,7 +74,7 @@ export const upDateProducts = async (id, access_token, data) => {
 export const deleteProduct = async (id, access_token) => {
   try {
     // thông qua id , và access_token chỉ cho phép delete product bởi admin.
-    const res = await axiosJWT.delete(
+    const res = await axios.delete(
       `${process.env.REACT_APP_API_URL}/product/delete-product/${id}`,
       {
         headers: {

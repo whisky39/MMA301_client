@@ -67,7 +67,7 @@ const AddProductScreen = () => {
           }}
         >
           <TextInput
-            placeholder="Product Name"
+            placeholder="Game Name"
             value={name}
             onChangeText={setName}
           />
@@ -134,7 +134,7 @@ const AddProductScreen = () => {
           style={{ display: "flex", alignItems: "center", marginTop: 30 }}
           onPress={handleAddProduct}
         >
-          <Text style={styles.buttonSave}>Add Product</Text>
+          <Text style={styles.buttonSave}>Add Game</Text>
         </TouchableOpacity>
       </View>
     </Layout>

@@ -5,7 +5,7 @@ const PriceTable = ({ price, title }) => {
   return (
     <View style={styles.container}>
       <Text>{title}</Text>
-      <Text>{price} $</Text>
+      <Text>{price}</Text>
     </View>
   );
 };

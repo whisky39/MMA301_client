@@ -7,7 +7,7 @@ const ProductsCard = ({ p }) => {
 
   //More details btn
   const handleUpdateProduct = (id) => {
-    navigation.navigate("update-product", { id:id });
+    navigation.navigate("update-product", { id: id });
   };
 
   return (
@@ -18,9 +18,7 @@ const ProductsCard = ({ p }) => {
           source={{ uri: p?.images[0]?.url || "a" }} // Sử dụng mảng images[0].url
         />
         <Text style={styles.cardTitle}>{p?.name}</Text>
-        <Text style={styles.cardDes}>
-          {p?.description.substring(0, 30)}...more
-        </Text>
+        <Text style={styles.cardDes}>{p?.category}</Text>
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.btn}

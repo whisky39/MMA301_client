@@ -28,7 +28,6 @@ const UpdateProduct = ({ route }) => {
   const [price, setPrice] = useState(new Date());
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState("");
-
   const [imageUri, setImageUri] = useState(null);
 
   useEffect(() => {
@@ -54,15 +53,12 @@ const UpdateProduct = ({ route }) => {
     }
   };
 
-  const handleAddProduct = async () => {
+  const handleUpdateProduct = async () => {
     //  validate data input
-    if (!validateFields({ name, description, price, category, stock })) return;
-
-    // create a new product
-    const newProduct = { name, description, price, category, stock };
-    const respone = await productServices.createProduct(newProduct);
+    // if (!validateFields({ name, description, price, category, stock })) return;
+    const respone = await productServices.upDateProducts(id,updateProduct);
     if (respone.status === "OK") {
-      Alert.alert("Product added successfully");
+      Alert.alert("Update product successfully");
     } else {
       Alert.alert(respone.message);
     }
@@ -98,7 +94,9 @@ const UpdateProduct = ({ route }) => {
           <TextInput
             placeholder="Product Name"
             value={updateProduct?.name}
-            onChangeText={setName}
+            onChangeText={(text) =>
+              setUpdateProduct({ ...updateProduct, name: text })
+            }
           />
         </View>
 
@@ -113,7 +111,9 @@ const UpdateProduct = ({ route }) => {
           <TextInput
             placeholder="Description"
             value={updateProduct?.description}
-            onChangeText={setDescription}
+            onChangeText={(text) =>
+              setUpdateProduct({ ...updateProduct, description: text })
+            }
           />
         </View>
 
@@ -126,7 +126,9 @@ const UpdateProduct = ({ route }) => {
           }}
           placeholder="Category"
           value={updateProduct?.category}
-          onChangeText={setCategory}
+          onChangeText={(text) =>
+            setUpdateProduct({ ...updateProduct, category: text })
+          }
         />
 
         <View
@@ -140,7 +142,9 @@ const UpdateProduct = ({ route }) => {
           <TextInput
             placeholder="Price"
             value={updateProduct?.price}
-            onChangeText={setPrice}
+            onChangeText={(text) =>
+              setUpdateProduct({ ...updateProduct, price: text })
+            }
             keyboardType="numeric"
           />
         </View>
@@ -155,15 +159,17 @@ const UpdateProduct = ({ route }) => {
           }}
           placeholder="Stock"
           value={updateProduct?.stock}
-          onChangeText={setStock}
+          onChangeText={(text) =>
+            setUpdateProduct({ ...updateProduct, stock: text })
+          }
           keyboardType="numeric"
         />
 
         <TouchableOpacity
           style={{ display: "flex", alignItems: "center", marginTop: 30 }}
-          onPress={handleAddProduct}
+          onPress={handleUpdateProduct}
         >
-          <Text style={styles.buttonSave}>Add Product</Text>
+          <Text style={styles.buttonSave}>Update Product</Text>
         </TouchableOpacity>
       </View>
     </Layout>
