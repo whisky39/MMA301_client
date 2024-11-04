@@ -1,5 +1,6 @@
 // screens/AddExpenseScreen.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   View,
   TextInput,
@@ -13,27 +14,51 @@ import {
 import * as productServices from "../../src/services/productServices";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import Layout from "../../components/Layout/Layout";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AddProductScreen = () => {
+const UpdateProduct = ({ route }) => {
+  const { id } = route.params;
+  // get product
+  const [updateProduct, setUpdateProduct] = useState({});
+
+  const navigation = useNavigation();
+  const [allProduct, setAllProduct] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(new Date());
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState("");
-
   const [imageUri, setImageUri] = useState(null);
 
-  const navigation = useNavigation();
+  useEffect(() => {
+    if (id) {
+      getDataFromAsycn();
+    }
+  }, [id]);
 
-  const handleAddProduct = async () => {
+  useEffect(() => {
+    if (allProduct) {
+      // console.log("idProduct ", idProduct);
+      const detailsProduct = allProduct.find((product) => product._id === id);
+      if (detailsProduct) {
+        setUpdateProduct({ ...detailsProduct });
+      }
+    }
+  }, [allProduct]);
+
+  const getDataFromAsycn = async () => {
+    const data = await AsyncStorage.getItem("products");
+    if (data) {
+      setAllProduct(JSON.parse(data));
+    }
+  };
+
+  const handleUpdateProduct = async () => {
     //  validate data input
-    if (!validateFields({ name, description, price, category, stock })) return;
-
-    // create a new product
-    const newProduct = { name, description, price, category, stock };
-    const respone = await productServices.createProduct(newProduct);
+    // if (!validateFields({ name, description, price, category, stock })) return;
+    const respone = await productServices.upDateProducts(id,updateProduct);
     if (respone.status === "OK") {
-      Alert.alert("Product added successfully");
+      Alert.alert("Update product successfully");
     } else {
       Alert.alert(respone.message);
     }
@@ -67,9 +92,11 @@ const AddProductScreen = () => {
           }}
         >
           <TextInput
-            placeholder="Game Name"
-            value={name}
-            onChangeText={setName}
+            placeholder="Product Name"
+            value={updateProduct?.name}
+            onChangeText={(text) =>
+              setUpdateProduct({ ...updateProduct, name: text })
+            }
           />
         </View>
 
@@ -83,8 +110,10 @@ const AddProductScreen = () => {
         >
           <TextInput
             placeholder="Description"
-            value={description}
-            onChangeText={setDescription}
+            value={updateProduct?.description}
+            onChangeText={(text) =>
+              setUpdateProduct({ ...updateProduct, description: text })
+            }
           />
         </View>
 
@@ -96,8 +125,10 @@ const AddProductScreen = () => {
             paddingBottom: 10,
           }}
           placeholder="Category"
-          value={category}
-          onChangeText={setCategory}
+          value={updateProduct?.category}
+          onChangeText={(text) =>
+            setUpdateProduct({ ...updateProduct, category: text })
+          }
         />
 
         <View
@@ -110,8 +141,10 @@ const AddProductScreen = () => {
         >
           <TextInput
             placeholder="Price"
-            value={price}
-            onChangeText={setPrice}
+            value={updateProduct?.price}
+            onChangeText={(text) =>
+              setUpdateProduct({ ...updateProduct, price: text })
+            }
             keyboardType="numeric"
           />
         </View>
@@ -125,16 +158,18 @@ const AddProductScreen = () => {
             marginBottom: 10,
           }}
           placeholder="Stock"
-          value={stock}
-          onChangeText={setStock}
+          value={updateProduct?.stock}
+          onChangeText={(text) =>
+            setUpdateProduct({ ...updateProduct, stock: text })
+          }
           keyboardType="numeric"
         />
 
         <TouchableOpacity
           style={{ display: "flex", alignItems: "center", marginTop: 30 }}
-          onPress={handleAddProduct}
+          onPress={handleUpdateProduct}
         >
-          <Text style={styles.buttonSave}>Add Game</Text>
+          <Text style={styles.buttonSave}>Update Product</Text>
         </TouchableOpacity>
       </View>
     </Layout>
@@ -156,4 +191,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddProductScreen;
+export default UpdateProduct;

@@ -14,7 +14,6 @@ const Categories = () => {
   const navigation = useNavigation()
 
   const [categories, setCategories] = useState(categoriesData);
-  console.log(categories)
 
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>

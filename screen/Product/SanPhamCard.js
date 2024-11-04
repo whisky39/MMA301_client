@@ -1,43 +1,13 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
-import React, { useEffect } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const ProductsCard = ({ p }) => {
   const navigation = useNavigation();
 
   //More details btn
-  const handleMoreButton = (id) => {
-    navigation.navigate("productDetails", { _id: id });
-    console.log(id);
-  };
-
-  //ADD TO CART
-  const handleAddToCart = async () => {
-    const getCardGame = await AsyncStorage.getItem("CardsGame");
-
-    if (getCardGame) {
-      const storeCard = JSON.parse(getCardGame);
-      const checkMatchId = storeCard.find((game) => game._id === p._id);
-      if (checkMatchId) {
-        Alert.alert("This game already in your card");
-      } else {
-        storeCard.push(p);
-        await AsyncStorage.setItem("CardsGame", JSON.stringify(storeCard));
-        Alert.alert("Add product to card successfully");
-      }
-    } else {
-      const storeCard = JSON.parse(getCardGame);
-      storeCard.push(p);
-      await AsyncStorage.setItem("CardsGame", JSON.stringify(storeCard));
-      Alert.alert("Add product to card successfully");
-    }
+  const handleUpdateProduct = (id) => {
+    navigation.navigate("update-product", { id: id });
   };
 
   return (
@@ -52,12 +22,9 @@ const ProductsCard = ({ p }) => {
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => handleMoreButton(p._id)}
+            onPress={() => handleUpdateProduct(p._id)}
           >
-            <Text style={styles.btnText}>Details</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btnCart} onPress={handleAddToCart}>
-            <Text style={styles.btnText}>Order</Text>
+            <Text style={styles.btnText}>Update</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -84,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cardImages: {
-    height: 200, // Giảm chiều cao ảnh để tạo không gian cho mô tả
+    height: 100, // Giảm chiều cao ảnh để tạo không gian cho mô tả
     width: "100%",
     borderRadius: 6,
     marginBottom: 4, // Thay đổi khoảng cách dưới ảnh
@@ -105,7 +72,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     width: "100%",
   },

@@ -1,8 +1,10 @@
 import { View, Text, ActivityIndicator, StyleSheet, FlatList, ScrollView } from "react-native";
 import React, { useState, useCallback } from "react";
-import ProductsCard from "./ProductsCard";
+import ProductsCard from "../../screen/Product/SanPhamCard";
 import * as productServices from "../../src/services/productServices";
 import { useFocusEffect } from "@react-navigation/native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -14,7 +16,8 @@ const Product = () => {
       setLoading(true);
       const fetchData = await productServices.getAllProduct();
       setProducts(fetchData.products);
-      // get dữ liệu
+      // mỗi lần vào trang trủ callApi get list product -> gán vào Asycn để khỏi phải call list này.
+      await AsyncStorage.setItem('products' ,JSON.stringify(fetchData.products));
     } catch (err) {
       console.error(err);
       setError("Có lỗi xảy ra khi lấy sản phẩm.");
@@ -58,7 +61,7 @@ const Product = () => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: 500,
+    height: 620,
     paddingBottom: 150
   },
   container: {

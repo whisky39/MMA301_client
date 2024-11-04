@@ -1,71 +1,84 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from "react";
+import { View, Text, StyleSheet, FlatList } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import * as productServices from "../src/services/productServices";
-import ProductsCard from '../components/Products/ProductsCard';
+import ProductsCard from "../components/Products/ProductsCard";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProductCategories = () => {
-    const navigation = useNavigation();
-    const route = useRoute();
+  const navigation = useNavigation();
+  const route = useRoute();
+  const [products, setProducts] = useState([]);
+  const [danhSachSanPham, setDanhSachSanPham] = useState([]);
 
-    const [products, setProducts] = useState([]);
+  const category = route.params.categoryName.toLowerCase();
 
-    const fetchProductFromServer = useCallback(async () => {
-        try {
-            const cate = route.params.categoryName.toLowerCase(); // Sửa 'toLowercase' thành 'toLowerCase'
-            const fetchData = await productServices.getProductsByCate(cate);
-            setProducts(fetchData.products);
-        } catch (err) {
-            console.error(err);
-            setError("Có lỗi xảy ra khi lấy sản phẩm.");
-        }
-    }, [route.params.categoryName]); 
+  const fetchProductFromServer = useCallback(async () => {
+    try {
+      const getDataFromAsycn = await AsyncStorage.getItem("products");
+      if (getDataFromAsycn) {
+        setDanhSachSanPham(JSON.parse(getDataFromAsycn));
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Có lỗi xảy ra khi lấy sản phẩm.");
+    }
+  }, [route.params.categoryName]);
 
-    //get product details
-    useEffect(() => {
-        //find product details
-        fetchProductFromServer();
-    }, [route.params.categoryName])
+  useEffect(() => {
+    if (danhSachSanPham) {
+      const matchData = danhSachSanPham.filter(
+        (sanpham) => sanpham.category.toLowerCase() === category
+      );
+      setProducts(matchData);
+    }
+  }, [danhSachSanPham]);
 
-    // Cập nhật tiêu đề tab khi component được hiển thị
-    useEffect(() => {
-        if (route.params?.categoryName) {
-            navigation.setOptions({ title: route.params.categoryName });
-        }
-    }, [route.params?.categoryName, navigation]);
+  //get product details
+  useEffect(() => {
+    //find product details
+    fetchProductFromServer();
+  }, [route.params.categoryName]);
 
-    const renderItem = ({ item }) => (
-        <View style={styles.cardContainer}>
-            <ProductsCard p={item} />
-        </View>
-    );
+  // Cập nhật tiêu đề tab khi component được hiển thị
+  useEffect(() => {
+    if (route.params?.categoryName) {
+      navigation.setOptions({ title: route.params.categoryName });
+    }
+  }, [route.params?.categoryName, navigation]);
 
-    return (
-        <View style={styles.mainContainer}>
-            <FlatList
-                data={products}
-                renderItem={renderItem}
-                keyExtractor={(item) => item._id}
-                numColumns={2}
-                columnWrapperStyle={styles.container}
-            />
-        </View>
-    );
+  const renderItem = ({ item }) => (
+    <View style={styles.cardContainer}>
+      <ProductsCard p={item} />
+    </View>
+  );
+
+  return (
+    <View style={styles.mainContainer}>
+      <FlatList
+        data={products}
+        renderItem={renderItem}
+        keyExtractor={(item) => item._id}
+        numColumns={2}
+        columnWrapperStyle={styles.container}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    mainContainer: {
-        height: 700,
+  mainContainer: {
+    height: 700,
 
-        paddingBottom: 150
-    },
-    container: {
-        justifyContent: "space-around",
-    },
-    cardContainer: {
-        width: "48%", // Mỗi thẻ chiếm 48% màn hình
-        marginBottom: 10,
-    },
+    paddingBottom: 150,
+  },
+  container: {
+    justifyContent: "space-around",
+  },
+  cardContainer: {
+    width: "48%", // Mỗi thẻ chiếm 48% màn hình
+    marginBottom: 10,
+  },
 });
 
 export default ProductCategories;
