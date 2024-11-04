@@ -1,102 +1,109 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
-import React from 'react'
-import { TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const ProductsCard = ({ p }) => {
-
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   //More details btn
   const handleMoreButton = (id) => {
-    navigation.navigate('productDetails', { _id:id })
+    navigation.navigate('productDetails', { _id: id });
     console.log(id);
-  }
+  };
 
   //ADD TO CART
   const handleAddToCart = () => {
-    alert('added to cart')
-  }
+    alert('added to cart');
+  };
 
   return (
-    <View>
+    <View style={styles.cardContainer}>
       <View style={styles.cards}>
-        <Image 
+        <Image
           style={styles.cardImages}
-          source={{ uri: p?.imageUrl }}
+          source={{ uri: p?.images[0]?.url || 'a' }} // Sử dụng mảng images[0].url
         />
         <Text style={styles.cardTitle}>{p?.name}</Text>
-        <Text style={styles.carDes}>{p?.description.substring(0, 30)} ...more</Text>
+        <Text style={styles.cardDes}>{p?.description.substring(0, 30)}...more</Text>
         <View style={styles.btnContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.btn}
             onPress={() => handleMoreButton(p._id)}
           >
             <Text style={styles.btnText}>Details</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnCart}>
-            <Text 
-              style={styles.btnText}
-              onPress={handleAddToCart}
-            >ADD TO CART</Text>
+          <TouchableOpacity style={styles.btnCart} onPress={handleAddToCart}>
+            <Text style={styles.btnText}>ADD TO CART</Text>
           </TouchableOpacity>
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  cards: {
-    borderWidth: 1,
-    borderColor: 'lightgray',
-    marginVertical: 5,
-    marginHorizontal: 8,
-    width: '40%',
-    padding: 10,
+  cardContainer: {
+    marginTop: 16,
+    marginBottom: 2, // Khoảng cách giữa các hàng
+    borderRadius: 8,
+    overflow: 'hidden',
     backgroundColor: '#ffffff',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3.84,
+    elevation: 5, // Chỉ dành cho Android để tạo bóng
+  },
+  cards: {
+    padding: 10,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   cardImages: {
-    height: 150,
+    height: 200, // Giảm chiều cao ảnh để tạo không gian cho mô tả
     width: '100%',
-    marginBottom: 10,
+    borderRadius: 6,
+    marginBottom: 4, // Thay đổi khoảng cách dưới ảnh
   },
   cardTitle: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    marginBottom: 5,
+    fontSize: 16, // Tăng kích thước chữ cho tiêu đề
+    fontWeight: '700', // Đậm hơn một chút
+    marginBottom: 4, // Thay đổi khoảng cách
+    color: '#333',
+    textAlign: 'center',
   },
-  carDes: {
-    fontSize: 10,
+  cardDes: {
+    fontSize: 12,
+    color: '#666',
+    marginBottom: 10, // Thay đổi khoảng cách dưới mô tả
     textAlign: 'center',
   },
   btnContainer: {
-    marginTop: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    width: '100%',
   },
   btn: {
-    backgroundColor: '#000000',
-    height: 24,
-    width: 80,
+    backgroundColor: '#1a73e8',
+    height: 36, // Tăng chiều cao nút để dễ nhấn hơn
+    width: '48%',
     borderRadius: 5,
     justifyContent: 'center',
   },
   btnCart: {
     backgroundColor: 'orange',
-    height: 24,
-    width: 80,
+    height: 36, // Đảm bảo chiều cao nút giống nhau
+    width: '48%',
     borderRadius: 5,
     justifyContent: 'center',
   },
   btnText: {
     color: '#ffffff',
     textAlign: 'center',
-    fontSize: 10,
-    fontWeight: 'bold',
+    fontSize: 14, // Tăng kích thước chữ cho nút
+    fontWeight: '600',
   },
-})
+});
 
-export default ProductsCard
+export default ProductsCard;
