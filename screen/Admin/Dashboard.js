@@ -2,15 +2,24 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Layout from '../../components/Layout/Layout'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { useRoute, useNavigation } from "@react-navigation/native";
+
 
 
 const Dashboard = () => {
+  const navigation = useNavigation();
+
+  const manageProduct = () => {
+    navigation.navigate('add-product')
+  }
+
   return (
     <Layout>
       <View style={styles.main}>
         <Text style={styles.heading}>Dashboard</Text>
         <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.btn}>
+
+          <TouchableOpacity style={styles.btn} onPress={manageProduct}>
             <AntDesign style={styles.icon} name='edit'/>
             <Text style={styles.btnText}>Manage Products</Text>
           </TouchableOpacity>
