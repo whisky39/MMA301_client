@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet , Alert } from "react-native";
 import React from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { useRoute, useNavigation } from "@react-navigation/native";
@@ -6,12 +6,21 @@ import { useReduxStateHook } from "../hooks/customerHook";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/features/auth/userAction";
 
+import * as userServices from "../../src/services/userServices";
+
 const Footer = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const loading = useReduxStateHook(navigation, path = "login");
-  const dispatch = useDispatch();
+  const loading = useReduxStateHook(navigation, (path = "login"));
+
+  const handelLogout = async () => {
+    const respone = await userServices.logoutUser();
+    if (respone.status === "OK") {
+      navigation.navigate("login");
+      Alert.alert(respone.message)
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -79,13 +88,7 @@ const Footer = () => {
       </TouchableOpacity>
 
       {/* Logout */}
-      <TouchableOpacity
-        style={styles.menuContainer}
-        onPress={() => {
-          dispatch(logout());
-          // alert('Logout Successfully'), navigation.navigate('login')
-        }}
-      >
+      <TouchableOpacity style={styles.menuContainer} onPress={handelLogout}>
         <AntDesign style={styles.icon} name="logout" />
         <Text style={styles.iconText}>Logout</Text>
       </TouchableOpacity>

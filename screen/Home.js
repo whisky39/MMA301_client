@@ -14,7 +14,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getUserData());
-    console.log(isAuth)
   }, [dispatch]);
 
   return (

@@ -14,6 +14,8 @@ import { login } from "../../redux/features/auth/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useReduxStateHook } from "../../components/hooks/customerHook";
 
+import * as userServices from "../../src/services/userServices";
+
 const Login = ({ navigation }) => {
   const loginImage = "https://cdn-icons-png.flaticon.com/512/5087/5087579.png";
 
@@ -27,11 +29,17 @@ const Login = ({ navigation }) => {
   const loading = useReduxStateHook(navigation, "home");
 
   // login function
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       return alert("Please add email or password");
     }
-    dispatch(login(email, password));
+    const data = { email, password };
+    const respone = await userServices.userLogin(data);
+    if (respone.status === "OK") {
+      navigation.navigate("home");
+      setEmail("");
+      setPassword("");
+    }
   };
 
   return (
