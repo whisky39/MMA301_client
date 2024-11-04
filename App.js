@@ -21,9 +21,10 @@ import Profile from './screen/Account/Profile'
 import MyOrders from './screen/Account/MyOrders'
 import Dashboard from './screen/Admin/Dashboard'
 import AddProduct from './screen/Product/AddProduct'
+import ProductCategories from './screen/ProductCategories'
 const Stack = createNativeStackNavigator()
 
-export default function App () {
+export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -58,7 +59,11 @@ export default function App () {
           <Stack.Screen name='payment' component={Payment} />
           <Stack.Screen name='account' component={Account} />
           <Stack.Screen name='cart' component={Cart} />
-          <Stack.Screen name='mobile' component={About} />
+          <Stack.Screen
+            name='productCategory'
+            component={ProductCategories}
+            options={({ route }) => ({ title: route.params.category })} // Cập nhật title
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
