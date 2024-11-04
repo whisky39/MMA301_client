@@ -11,7 +11,6 @@ import {
 } from "react-native";
 
 import * as productServices from "../../src/services/productServices";
-import { launchImageLibrary } from "react-native-image-picker";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import Layout from "../../components/Layout/Layout";
 const AddExpenseScreen = () => {

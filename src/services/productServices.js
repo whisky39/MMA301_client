@@ -19,11 +19,11 @@ export const getAllProduct = async (search, limit) => {
   let res = {};
   if (search?.length > 0) {
     res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/product/get-all?filter=name&filter=${search}&${limit}`
+      `${"http://192.168.1.7:8080/api"}/product/get-all`
     );
   } else {
     res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/product/get-all?limit=${limit}`
+      `${"http://192.168.1.7:8080/api"}/product/get-all`
     );
   }
   return res?.data;
@@ -50,7 +50,7 @@ export const getAllCategory = async () => {
 // GET DETAILS PRODUCT BY ID
 export const getDetailsProduct = async (id) => {
   const res = await axios.get(
-    `${process.env.REACT_APP_API_URL}/product/details/${id}`
+    `${'http://192.168.1.7:8080/api'}/product/${id}`
   );
   return res?.data;
 };
