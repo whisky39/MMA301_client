@@ -26,7 +26,8 @@ import showProducts from './screen/Product/ShowProducts'
 import ProductManager from "./screen/Product/ProductManager";
 import UpdateProduct from './screen/Product/UpdateProduct'
 
-const Stack = createNativeStackNavigator();
+import ProductCategories from './screen/ProductCategories'
+const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
@@ -85,10 +86,14 @@ export default function App() {
             component={Register}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="payment" component={Payment} />
-          <Stack.Screen name="account" component={Account} />
-          <Stack.Screen name="cart" component={Cart} />
-          <Stack.Screen name="mobile" component={About} />
+          <Stack.Screen name='payment' component={Payment} />
+          <Stack.Screen name='account' component={Account} />
+          <Stack.Screen name='cart' component={Cart} />
+          <Stack.Screen
+            name='productCategory'
+            component={ProductCategories}
+            options={({ route }) => ({ title: route.params.category })} // Cập nhật title
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
