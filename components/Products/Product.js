@@ -1,9 +1,18 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import ProductsCard from "./ProductsCard";
 import { ProductsData } from "../data/ProductsData";
 
 const Product = () => {
+
+  const fetchProductFromServer = async () => {
+    
+  }
+
+  useEffect(() => {
+
+  },[])
+
   return (
     <View>
       {ProductsData.map((p) => (

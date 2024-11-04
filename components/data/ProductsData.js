@@ -1,3 +1,9 @@
+
+
+const dataFetchFromServer = () => {
+
+}
+
 export const ProductsData = [
   {
     _id: 1,
