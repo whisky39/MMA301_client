@@ -4,40 +4,30 @@ import Layout from "../../components/Layout/Layout";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
-const Dashboard = () => {
+const ProductManager = () => {
   const navigation = useNavigation();
+
+  const addNewProduct = () => {
+    navigation.navigate("add-product");
+  };
+
+  const managerProducts = () => {
+    navigation.navigate("add-product");
+  };
 
   return (
     <Layout>
       <View style={styles.main}>
-        <Text style={styles.heading}>Dashboard</Text>
+        <Text style={styles.heading}>Product Manager</Text>
         <View style={styles.btnContainer}>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => navigation.navigate("product-management")}
-          >
+          <TouchableOpacity style={styles.btn} onPress={addNewProduct}>
+            <AntDesign style={styles.icon} name="edit" />
+            <Text style={styles.btnText}>Add New Product</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.btn} onPress={managerProducts}>
             <AntDesign style={styles.icon} name="edit" />
             <Text style={styles.btnText}>Manage Products</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btn}>
-            <AntDesign style={styles.icon} name="edit" />
-            <Text style={styles.btnText}>Manage Categories</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btn}>
-            <AntDesign style={styles.icon} name="user" />
-            <Text style={styles.btnText}>Manage Users</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btn}>
-            <AntDesign style={styles.icon} name="bars" />
-            <Text style={styles.btnText}>Manage Orders</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btn}>
-            <AntDesign style={styles.icon} name="info" />
-            <Text style={styles.btnText}>About App</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -82,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Dashboard;
+export default ProductManager;

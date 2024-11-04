@@ -13,7 +13,7 @@ import {
 import * as productServices from "../../src/services/productServices";
 import { launchImageLibrary } from "react-native-image-picker";
 import { useRoute, useNavigation } from "@react-navigation/native";
-
+import Layout from "../../components/Layout/Layout";
 const AddExpenseScreen = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -56,86 +56,88 @@ const AddExpenseScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          borderBottomWidth: 1,
-          borderColor: "#333",
-          paddingTop: 30,
-          paddingBottom: 10,
-        }}
-      >
+    <Layout>
+      <View style={styles.container}>
+        <View
+          style={{
+            borderBottomWidth: 1,
+            borderColor: "#333",
+            paddingTop: 30,
+            paddingBottom: 10,
+          }}
+        >
+          <TextInput
+            placeholder="Product Name"
+            value={name}
+            onChangeText={setName}
+          />
+        </View>
+
+        <View
+          style={{
+            borderBottomWidth: 1,
+            borderColor: "#333",
+            paddingTop: 30,
+            paddingBottom: 10,
+          }}
+        >
+          <TextInput
+            placeholder="Description"
+            value={description}
+            onChangeText={setDescription}
+          />
+        </View>
+
         <TextInput
-          placeholder="Product Name"
-          value={name}
-          onChangeText={setName}
+          style={{
+            borderBottomWidth: 1,
+            borderColor: "#333",
+            paddingTop: 30,
+            paddingBottom: 10,
+          }}
+          placeholder="Category"
+          value={category}
+          onChangeText={setCategory}
         />
-      </View>
 
-      <View
-        style={{
-          borderBottomWidth: 1,
-          borderColor: "#333",
-          paddingTop: 30,
-          paddingBottom: 10,
-        }}
-      >
+        <View
+          style={{
+            borderBottomWidth: 1,
+            borderColor: "#333",
+            paddingTop: 30,
+            paddingBottom: 10,
+          }}
+        >
+          <TextInput
+            placeholder="Price"
+            value={price}
+            onChangeText={setPrice}
+            keyboardType="numeric"
+          />
+        </View>
+
         <TextInput
-          placeholder="Description"
-          value={description}
-          onChangeText={setDescription}
-        />
-      </View>
-
-      <TextInput
-        style={{
-          borderBottomWidth: 1,
-          borderColor: "#333",
-          paddingTop: 30,
-          paddingBottom: 10,
-        }}
-        placeholder="Category"
-        value={category}
-        onChangeText={setCategory}
-      />
-
-      <View
-        style={{
-          borderBottomWidth: 1,
-          borderColor: "#333",
-          paddingTop: 30,
-          paddingBottom: 10,
-        }}
-      >
-        <TextInput
-          placeholder="Price"
-          value={price}
-          onChangeText={setPrice}
+          style={{
+            borderBottomWidth: 1,
+            borderColor: "#333",
+            paddingTop: 30,
+            paddingBottom: 10,
+            marginBottom: 10,
+          }}
+          placeholder="Stock"
+          value={stock}
+          onChangeText={setStock}
           keyboardType="numeric"
         />
+
+        <TouchableOpacity
+          style={{ display: "flex", alignItems: "center", marginTop: 30 }}
+          onPress={handleAddProduct}
+        >
+          <Text style={styles.buttonSave}>Add Product</Text>
+        </TouchableOpacity>
       </View>
-
-      <TextInput
-        style={{
-          borderBottomWidth: 1,
-          borderColor: "#333",
-          paddingTop: 30,
-          paddingBottom: 10,
-          marginBottom: 10,
-        }}
-        placeholder="Stock"
-        value={stock}
-        onChangeText={setStock}
-        keyboardType="numeric"
-      />
-
-      <TouchableOpacity
-        style={{ display: "flex", alignItems: "center", marginTop: 30 }}
-        onPress={handleAddProduct}
-      >
-        <Text style={styles.buttonSave}>Add Product</Text>
-      </TouchableOpacity>
-    </View>
+    </Layout>
   );
 };
 
