@@ -6,7 +6,6 @@ import * as OrderServices from "../../src/services/OrderServices";
 import OrderItems from "../../components/Form/OrderItems";
 import { useFocusEffect } from "@react-navigation/native";
 const Notification = () => {
-
   const [user, setUser] = useState();
   const [userOrders, setUserOrders] = useState([]);
 
@@ -38,7 +37,7 @@ const Notification = () => {
     const respone = await OrderServices.getAllOrder();
 
     console.log("respone ", respone);
-    
+
     if (respone?.status === "OK") {
       const sortOrdersByDate = respone.orders.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -54,9 +53,13 @@ const Notification = () => {
   return (
     <View>
       <ScrollView>
-        {userOrders.map((order) => (
-          <OrderItems key={order._id} order={order} />
-        ))}
+        {userOrders.length > 0 ? (
+          userOrders.map((order) => (
+            <OrderItems key={order._id} order={order} />
+          ))
+        ) : (
+          <Text style={{paddingHorizontal : 10 , paddingTop : 20 , fontSize : 16}}>There is no voucher</Text>
+        )}
       </ScrollView>
     </View>
   );
