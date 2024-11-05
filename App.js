@@ -65,6 +65,11 @@ export default function App() {
             options={{ headerTitle: "My orders" }} />
 
           <Stack.Screen
+            name="orders-management"
+            component={OrderManagement}
+            options={{ headerTitle: "Orders Management" }} /> 
+
+          <Stack.Screen
             name="profile"
             component={Profile}
             options={{ headerTitle: "Update profile" }}
