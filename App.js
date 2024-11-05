@@ -24,6 +24,7 @@ import Dashboard from "./screen/Admin/Dashboard";
 import AddProduct from "./screen/Product/AddProduct";
 import showProducts from "./screen/Product/ShowProducts";
 import ProductManager from "./screen/Product/ProductManager";
+import UserManager from "./screen/Product/UserManager";
 import UpdateProduct from "./screen/Product/UpdateProduct";
 
 import ProductCategories from "./screen/ProductCategories";
@@ -57,6 +58,11 @@ export default function App() {
             name="product-management"
             component={ProductManager}
             options={{ headerTitle: "" }}
+          />
+          <Stack.Screen
+            name="user-management"
+            component={UserManager}
+            options={{ headerTitle: "Manage users" }}
           />
 
           {/* addproduct */}
