@@ -20,12 +20,14 @@ const Dashboard = () => {
             <Text style={styles.btnText}>Manage Products</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btn}>
-            <AntDesign style={styles.icon} name="edit" />
+          <TouchableOpacity style={styles.btn}
+          onPress={() => navigation.navigate("category-management")}>
+            <AntDesign style={styles.icon} name="filetext1" />
             <Text style={styles.btnText}>Manage Categories</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity style={styles.btn}
+          onPress={() => navigation.navigate("user-management")}>
             <AntDesign style={styles.icon} name="user" />
             <Text style={styles.btnText}>Manage Users</Text>
           </TouchableOpacity>

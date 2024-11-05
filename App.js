@@ -24,6 +24,8 @@ import Dashboard from "./screen/Admin/Dashboard";
 import AddProduct from "./screen/Product/AddProduct";
 import showProducts from "./screen/Product/ShowProducts";
 import ProductManager from "./screen/Product/ProductManager";
+import UserManager from "./screen/Product/UserManager";
+import CategoryManager from "./screen/Product/CategoryManager";
 import UpdateProduct from "./screen/Product/UpdateProduct";
 
 import ProductCategories from "./screen/ProductCategories";
@@ -46,21 +48,49 @@ export default function App() {
             }}
           />
 
-          <Stack.Screen name="productDetails" component={ProductDetails} />
-          <Stack.Screen name="checkout" component={Checkout} />
-          <Stack.Screen name="myOrders" component={MyOrders} />
-          <Stack.Screen name="profile" component={Profile} />
+          <Stack.Screen
+            name="productDetails"
+            component={ProductDetails}
+            options={{ headerTitle: "Product detail" }}
+          />
+          <Stack.Screen 
+          name="checkout" 
+          component={Checkout} 
+          options={{ headerTitle: "Checkout" }}
+          />
+
+          <Stack.Screen
+            name="myOrders"
+            component={MyOrders}
+            options={{ headerTitle: "My orders" }} />
+
+          <Stack.Screen
+            name="profile"
+            component={Profile}
+            options={{ headerTitle: "Update profile" }}
+          />
 
           <Stack.Screen name="notification" component={Notification} />
-
-          <Stack.Screen name="orders-management" component={OrderManagement} />
-
-          <Stack.Screen name="adminPanel" component={Dashboard} />
+          <Stack.Screen
+            name="adminPanel"
+            component={Dashboard}
+            options={{ headerTitle: "Admin panel" }}
+          />
 
           <Stack.Screen
             name="product-management"
             component={ProductManager}
-            options={{ headerTitle: "" }}
+            options={{ headerTitle: "Manage product" }}
+          />
+          <Stack.Screen
+            name="user-management"
+            component={UserManager}
+            options={{ headerTitle: "Manage users" }}
+          />
+          <Stack.Screen
+            name="category-management"
+            component={CategoryManager}
+            options={{ headerTitle: "Manage categories" }}
           />
 
           {/* addproduct */}
