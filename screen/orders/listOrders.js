@@ -5,7 +5,7 @@ import accounting from "accounting";
 
 import { converMoney, converTimeZone } from "../../ultils";
 import * as OrderServices from "../../src/services/OrderServices";
-const OrderItems = ({ order }) => {
+const OrderItems = ({ order, cancelOrder, fetchDataOrderAdmin }) => {
   const formatDate = format(new Date(order.createdAt), "dd/MM/yyyy");
   const formattedPrice = converMoney(order.orderItems[0].price);
 
@@ -15,10 +15,29 @@ const OrderItems = ({ order }) => {
     if (respone?.status === "OK") {
       Alert.alert(`${respone?.message} 
 Time : ${converTimeZone(respone?.data?.deliveredAt)}`);
+      fetchDataOrderAdmin();
     } else if (respone?.status === 500) {
       Alert.alert(`${respone?.message} 
 Time : ${converTimeZone(respone?.data?.deliveredAt)}`);
+      fetchDataOrderAdmin();
     }
+  };
+
+  const removeOrder = async (id) => {
+    Alert.alert(
+      "Delete Order !!!",
+      "Are you sure you want to delete this order ?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "OK",
+          onPress: () => {
+            cancelOrder(id);
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
@@ -44,12 +63,20 @@ Time : ${converTimeZone(respone?.data?.deliveredAt)}`);
           }}
         >
           <Text style={styles.status}>Order Status : {order.orderStatus}</Text>
-          <Text
-            style={styles.status_accept}
-            onPress={() => acceptOrder(order._id)}
-          >
-            Accept
-          </Text>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Text
+              style={styles.status_accept}
+              onPress={() => acceptOrder(order._id)}
+            >
+              Accept
+            </Text>
+            <Text
+              style={styles.status_cancel}
+              onPress={() => removeOrder(order._id)}
+            >
+              Cancel
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -78,12 +105,21 @@ const styles = StyleSheet.create({
   },
 
   status_accept: {
-    fontSize: 16,
+    fontSize: 14,
     borderTopWidth: 1,
     fontWeight: "bold",
     borderColor: "lightgray",
     padding: 5,
     color: "green",
+  },
+
+  status_cancel: {
+    fontSize: 14,
+    borderTopWidth: 1,
+    fontWeight: "bold",
+    borderColor: "lightgray",
+    padding: 5,
+    color: "red",
   },
 });
 
