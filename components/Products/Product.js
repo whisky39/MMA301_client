@@ -66,7 +66,7 @@ const Product = ({ searchText }) => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: 700,
+    height: 500,
     paddingBottom: 150
   },
   container: {
