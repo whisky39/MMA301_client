@@ -5,7 +5,7 @@ import { TouchableOpacity } from "react-native";
 import Layout from "../components/Layout/Layout";
 import * as productServices from "../src/services/productServices";
 
-import YoutubePlayer from "react-native-youtube-iframe";
+// import YoutubePlayer from "react-native-youtube-iframe";
 
 const ProductDetails = ({ route }) => {
   const [pDetails, setPDetails] = useState({});
@@ -50,14 +50,8 @@ const ProductDetails = ({ route }) => {
 
       <View style={styles.container}>
         <Text style={styles.title}>{pDetails?.name}</Text>
-        <Text style={styles.title}>Price: {pDetails?.price} $</Text>
+        <Text style={styles.title}>Price: {pDetails?.price}</Text>
         <Text style={styles.desc}>Price: {pDetails?.description}</Text>
-
-        <YoutubePlayer
-          height={200}
-          videoId={"2qCmRJz3NOE"}
-          play
-        />
 
         <View style={styles.btnContainer}>
           <TouchableOpacity
@@ -66,7 +60,7 @@ const ProductDetails = ({ route }) => {
             disabled={pDetails?.quantity <= 0}
           >
             <Text style={styles.btnCartText}>
-              {pDetails?.quantity > 0 ? "ADD TO CART" : "OUT OF STOCK"}
+              {"ADD TO CART"}
             </Text>
           </TouchableOpacity>
 
