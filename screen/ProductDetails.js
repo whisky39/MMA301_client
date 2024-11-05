@@ -50,8 +50,9 @@ const ProductDetails = ({ route }) => {
 
       <View style={styles.container}>
         <Text style={styles.title}>{pDetails?.name}</Text>
-        <Text style={styles.title}>Price: {pDetails?.price}</Text>
-        <Text style={styles.desc}>Price: {pDetails?.description}</Text>
+        <Text style={styles.title}>Price: {Number(pDetails?.price || 0).toLocaleString("vi-VN")} VNĐ</Text>
+
+        <Text style={styles.desc}>Description: {pDetails?.description}</Text>
 
         <View style={styles.btnContainer}>
           <TouchableOpacity
