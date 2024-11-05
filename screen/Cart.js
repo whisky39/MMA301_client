@@ -17,7 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import UpdateProduct from "./Product/UpdateProduct";
 
-import {converMoney} from '../ultils'
+import { converMoney } from "../ultils";
 
 const Cart = ({ navigation }) => {
   const [cartItems, setCartItems] = useState(CartData);
@@ -43,14 +43,13 @@ const Cart = ({ navigation }) => {
   );
 
   const renderItem = ({ item }) => (
-
     <View style={{ marginTop: 10, marginBottom: 10 }}>
       <PriceTable price={item.name} title={"Name"} />
-      <PriceTable price={`${Number(item.price || 0).toLocaleString("vi-VN")} VNĐ`} title={"Price"} />
+      <PriceTable price={item.price} title={"Price"} />
       <PriceTable price={1} title={"Tax"} />
 
       <View style={styles.grandTotal}>
-        <PriceTable title={"Grand Total"} price={`${Number(item.price || 0).toLocaleString("vi-VN")} VNĐ`} />
+        <PriceTable title={"Grand Total"} price={item.price} />
       </View>
 
       <View style={styles.Actions}>

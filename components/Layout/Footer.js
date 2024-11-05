@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/features/auth/userAction";
 
 import * as userServices from "../../src/services/userServices";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Footer = () => {
   const route = useRoute();
@@ -17,6 +18,7 @@ const Footer = () => {
   const handelLogout = async () => {
     const respone = await userServices.logoutUser();
     if (respone.status === "OK") {
+      await AsyncStorage.removeItem('userInfo')
       navigation.navigate("login");
       Alert.alert(respone.message)
     }
