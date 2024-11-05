@@ -13,7 +13,7 @@ const Header = ({ searchText, setSearchText }) => {
   };
 
   return (
-    <View style={{ height: 90, backgroundColor: 'lightgray' }}>
+    <View style={{ height: 90, backgroundColor: '#111111' }}>
       <View style={styles.container}>
         <TextInput 
           style={styles.inputBox} 

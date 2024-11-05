@@ -22,12 +22,15 @@ import MyOrders from "./screen/Account/MyOrders";
 import Dashboard from "./screen/Admin/Dashboard";
 
 import AddProduct from "./screen/Product/AddProduct";
-import showProducts from './screen/Product/ShowProducts'
+import showProducts from "./screen/Product/ShowProducts";
 import ProductManager from "./screen/Product/ProductManager";
-import UpdateProduct from './screen/Product/UpdateProduct'
+import UpdateProduct from "./screen/Product/UpdateProduct";
 
-import ProductCategories from './screen/ProductCategories'
-const Stack = createNativeStackNavigator()
+import ProductCategories from "./screen/ProductCategories";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
@@ -46,6 +49,7 @@ export default function App() {
           <Stack.Screen name="checkout" component={Checkout} />
           <Stack.Screen name="myOrders" component={MyOrders} />
           <Stack.Screen name="profile" component={Profile} />
+
           <Stack.Screen name="notification" component={Notification} />
           <Stack.Screen name="adminPanel" component={Dashboard} />
 
@@ -66,14 +70,20 @@ export default function App() {
           <Stack.Screen
             name="show-products"
             component={showProducts}
-            options={{ headerTitle: "Products Manager", headerTitleAlign: "center" }}
+            options={{
+              headerTitle: "Products Manager",
+              headerTitleAlign: "center",
+            }}
           />
 
           {/* update product */}
           <Stack.Screen
             name="update-product"
             component={UpdateProduct}
-            options={{ headerTitle: "Update Product", headerTitleAlign: "center" }}
+            options={{
+              headerTitle: "Update Product",
+              headerTitleAlign: "center",
+            }}
           />
 
           <Stack.Screen
@@ -86,11 +96,11 @@ export default function App() {
             component={Register}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name='payment' component={Payment} />
-          <Stack.Screen name='account' component={Account} />
-          <Stack.Screen name='cart' component={Cart} />
+          <Stack.Screen name="payment" component={Payment} />
+          <Stack.Screen name="account" component={Account} />
+          <Stack.Screen name="cart" component={Cart} />
           <Stack.Screen
-            name='productCategory'
+            name="productCategory"
             component={ProductCategories}
             options={({ route }) => ({ title: route.params.category })} // Cập nhật title
           />

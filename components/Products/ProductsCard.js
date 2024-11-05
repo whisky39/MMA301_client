@@ -44,10 +44,11 @@ const ProductsCard = ({ p }) => {
     <View style={styles.cardContainer}>
       <View style={styles.cards}>
         <Image
+          onPress={() => handleMoreButton(p._id)}
           style={styles.cardImages}
           source={{ uri: p?.images[0]?.url || "a" }} // Sử dụng mảng images[0].url
         />
-        <Text style={styles.cardTitle}>{p?.name}</Text>
+        <Text style={styles.cardTitle} onPress={() => handleMoreButton(p._id)}>{p?.name}</Text>
         <Text style={styles.cardDes}>{p?.category}</Text>
         <View style={styles.btnContainer}>
           <TouchableOpacity

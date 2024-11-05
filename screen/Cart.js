@@ -17,6 +17,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import UpdateProduct from "./Product/UpdateProduct";
 
+import { converMoney } from "../ultils";
+
 const Cart = ({ navigation }) => {
   const [cartItems, setCartItems] = useState(CartData);
 
@@ -53,7 +55,7 @@ const Cart = ({ navigation }) => {
       <View style={styles.Actions}>
         <TouchableOpacity
           style={styles.btnCheckout}
-          onPress={() => navigation.navigate("checkout" , {item})}
+          onPress={() => navigation.navigate("checkout", { item })}
         >
           <Text style={styles.btnCheckoutText}>CHECKOUT</Text>
         </TouchableOpacity>
