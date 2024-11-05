@@ -46,17 +46,17 @@ const Cart = ({ navigation }) => {
 
     <View style={{ marginTop: 10, marginBottom: 10 }}>
       <PriceTable price={item.name} title={"Name"} />
-      <PriceTable price={item.price} title={"Price"} />
+      <PriceTable price={`${Number(item.price || 0).toLocaleString("vi-VN")} VNĐ`} title={"Price"} />
       <PriceTable price={1} title={"Tax"} />
 
       <View style={styles.grandTotal}>
-        <PriceTable title={"Grand Total"} price={item.price} />
+        <PriceTable title={"Grand Total"} price={`${Number(item.price || 0).toLocaleString("vi-VN")} VNĐ`} />
       </View>
 
       <View style={styles.Actions}>
         <TouchableOpacity
           style={styles.btnCheckout}
-          onPress={() => navigation.navigate("checkout" , {item})}
+          onPress={() => navigation.navigate("checkout", { item })}
         >
           <Text style={styles.btnCheckoutText}>CHECKOUT</Text>
         </TouchableOpacity>

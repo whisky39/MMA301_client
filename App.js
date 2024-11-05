@@ -27,9 +27,28 @@ import ProductManager from "./screen/Product/ProductManager";
 import UpdateProduct from './screen/Product/UpdateProduct'
 
 import ProductCategories from './screen/ProductCategories'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { useCallback, useEffect, useState } from "react";
 const Stack = createNativeStackNavigator()
 
 export default function App() {
+
+  const [account, setAccount] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // Kiểm tra đăng nhập
+  const checkLogin = useCallback(async () => {
+    const userInfo = await AsyncStorage.getItem("userInfo");
+    if (userInfo) {
+      setAccount(JSON.parse(userInfo));
+      setIsLoggedIn(true); // Đặt trạng thái đăng nhập
+    }
+  }, []);
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
   return (
     <Provider store={store}>
       <NavigationContainer>
