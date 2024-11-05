@@ -58,12 +58,9 @@ export const getProductsByCate = async (cate) => {
 // POST UPDATE PRODUCT BY ID
 export const upDateProducts = async (id, data) => {
   try {
-
     // thông qua id , và access_token chỉ cho phép update product bởi admin.
     const res = await axios.put(`${port()}/product/${id}`, data);
-
     console.log("res ", res);
-
     return res?.data;
   } catch (error) {
     console.log("error :", error);
@@ -82,6 +79,17 @@ export const deleteProduct = async (id, access_token) => {
         },
       }
     );
+    return res?.data;
+  } catch (error) {
+    console.log("error :", error);
+  }
+};
+
+
+// POST UPDATE PRODUCT BY ID
+export const orderProduct = async (data) => {
+  try {
+    const res = await axios.post(`${port()}/order/create`, data);
     return res?.data;
   } catch (error) {
     console.log("error :", error);
