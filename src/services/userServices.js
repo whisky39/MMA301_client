@@ -49,12 +49,7 @@ export const refreshToken = async () => {
 export const getAllUser = async (access_token) => {
   // gọi api / clearCookie("refresh_token") ;
   const res = await axiosJWT.get(
-    `${process.env.REACT_APP_API_URL}/user/getAll`,
-    {
-      headers: {
-        token: `Bearer ${access_token}`,
-      },
-    }
+    `${port()}/user/getAll`
   );
   return res?.data;
 };
