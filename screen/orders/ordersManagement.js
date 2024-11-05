@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as userServices from "../../src/services/userServices";
@@ -44,11 +44,19 @@ const OrderManager = () => {
     }
   };
 
+  const cancelOrder = async (id) => {
+    const respone = await OrderServices.removeOrder(id);
+    if (respone?.status === "OK") {
+      Alert.alert(respone.message);
+      fetchDataOrderAdmin();
+    }
+  };
+
   return (
     <View>
       <ScrollView>
         {userOrders.map((order) => (
-          <OrderItems key={order._id} order={order} />
+          <OrderItems key={order._id} order={order} cancelOrder={cancelOrder} fetchDataOrderAdmin={fetchDataOrderAdmin} />
         ))}
       </ScrollView>
     </View>
