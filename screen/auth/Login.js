@@ -35,7 +35,6 @@ const Login = ({ navigation }) => {
     }
     const data = { email, password };
     const respone = await userServices.userLogin(data);
-
     if (respone.status === "OK") {
       await AsyncStorage.setItem('userInfo' , JSON.stringify(respone));
       navigation.navigate("home");

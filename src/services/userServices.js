@@ -4,17 +4,12 @@ export const axiosJWT = axios.create();
 
 export const userLogin = async (data) => {
   try {
-
-    const res = await axios.post(
-      `${port()}/user/login`,
-      data
-    );
+    const res = await axios.post(`${port()}/user/login`, data);
     return res?.data;
   } catch (error) {
     console.log(error);
   }
 };
-
 
 export const logoutUser = async () => {
   // gọi api / clearCookie("refresh_token") ;
@@ -33,9 +28,7 @@ export const userRegister = async (data) => {
 export const getDetailsUser = async (id, access_token) => {
   // thông qua id , và access_token chỉ cho phép get dữ liệu của only user này
   try {
-    const res = await axiosJWT.get(
-      `${port()}/user/profile`
-    );
+    const res = await axiosJWT.get(`${port()}/user/profile`);
     return res?.data;
   } catch (error) {
     console.log("Error :", error);
@@ -53,7 +46,6 @@ export const refreshToken = async () => {
   return res?.data;
 };
 
-
 export const getAllUser = async (access_token) => {
   // gọi api / clearCookie("refresh_token") ;
   const res = await axiosJWT.get(
@@ -69,9 +61,7 @@ export const getAllUser = async (access_token) => {
 
 export const updateUser = async (data) => {
   // gọi api / clearCookie("refresh_token") ;
-  const res = await axiosJWT.put(
-    `${port()}/user/update-profile`, data.data
-  );
+  const res = await axiosJWT.put(`${port()}/user/update-profile`, data.data);
   return res?.data;
 };
 
@@ -86,6 +76,13 @@ export const deleteUser = async (id, access_token) => {
     }
   );
   console.log("Respone Data From Delete User : ", res);
+  return res?.data;
+};
+
+export const getListOrder = async () => {
+  const res = await axiosJWT.get(
+    `${port()}/order/my-orders`
+  );
   return res?.data;
 };
 
