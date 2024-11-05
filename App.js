@@ -27,6 +27,7 @@ import ProductManager from "./screen/Product/ProductManager";
 import UpdateProduct from "./screen/Product/UpdateProduct";
 
 import ProductCategories from "./screen/ProductCategories";
+import OrderManagement from './screen/orders/ordersManagement';
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -51,6 +52,9 @@ export default function App() {
           <Stack.Screen name="profile" component={Profile} />
 
           <Stack.Screen name="notification" component={Notification} />
+
+          <Stack.Screen name="orders-management" component={OrderManagement} />
+
           <Stack.Screen name="adminPanel" component={Dashboard} />
 
           <Stack.Screen

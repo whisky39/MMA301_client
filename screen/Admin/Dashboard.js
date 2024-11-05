@@ -30,7 +30,10 @@ const Dashboard = () => {
             <Text style={styles.btnText}>Manage Users</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => navigation.navigate("orders-management")}
+          >
             <AntDesign style={styles.icon} name="bars" />
             <Text style={styles.btnText}>Manage Orders</Text>
           </TouchableOpacity>
