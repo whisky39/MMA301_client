@@ -5,7 +5,7 @@
 import accounting from 'accounting';
 
 export const port = () => {
-    return 'http://192.168.1.8:8080/api'
+    return 'http://192.168.1.23:8080/api'
 }
 
 
