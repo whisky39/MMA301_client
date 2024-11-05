@@ -1,11 +1,13 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import Layout from '../../components/Layout/Layout'
-import { UserData } from '../../components/data/UserData'
-import { TouchableOpacity } from 'react-native'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import { View, Text, Image, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import Layout from "../../components/Layout/Layout";
+import { UserData } from "../../components/data/UserData";
+import { TouchableOpacity } from "react-native";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import * as userServices from "../../src/services/userServices";
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from "@react-navigation/native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Account = ({ navigation }) => {
   const [account, setAccount] = useState(null);
@@ -19,7 +21,7 @@ const Account = ({ navigation }) => {
         setAccount(response.user); // Cập nhật thông tin tài khoản
       }
     } catch (error) {
-      console.error('Error getting profile:', error);
+      console.error("Error getting profile:", error);
     } finally {
       setLoading(false); // Đánh dấu là đã tải xong
     }
@@ -45,9 +47,9 @@ const Account = ({ navigation }) => {
     <Layout>
       <View style={styles.container}>
         <Image source={{ uri: UserData.profilePicture }} style={styles.image} />
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Text style={styles.name}>
-            Hi <Text style={{ color: 'green' }}>{account.name} ✌️</Text>
+            Hi <Text style={{ color: "green" }}>{account.name} ✌️</Text>
           </Text>
           <Text>Email: {account.email}</Text>
           <Text>Contact: {account.contact}</Text>
@@ -56,36 +58,39 @@ const Account = ({ navigation }) => {
           <Text style={styles.heading}>Account Settings</Text>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('profile', { id: account._id })}
+            onPress={() => navigation.navigate("profile", { id: account._id })}
             style={styles.btn}
           >
-            <AntDesign style={styles.btnText} name='edit' />
+            <AntDesign style={styles.btnText} name="edit" />
             <Text style={styles.btnText}>Edit Profile</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('myOrders', { id: account._id })}
+            onPress={() => navigation.navigate("myOrders", { id: account._id })}
             style={styles.btn}
           >
-            <AntDesign style={styles.btnText} name='bars' />
+            <AntDesign style={styles.btnText} name="bars" />
             <Text style={styles.btnText}>My Orders</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('notifications')}
+            onPress={() => navigation.navigate("notifications")}
             style={styles.btn}
           >
-            <AntDesign style={styles.btnText} name='bells' />
+            <AntDesign style={styles.btnText} name="bells" />
             <Text style={styles.btnText}>Notification</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate('adminPanel', { id: account._id })}
-            style={styles.btn}
-          >
-            <AntDesign style={styles.btnText} name='windows' />
-            <Text style={styles.btnText}>Admin Panel</Text>
-          </TouchableOpacity>
+          {account?.role === "admin" && (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("adminPanel", { id: account._id })
+              }
+              style={styles.btn}
+            >
+              <AntDesign style={styles.btnText} name="windows" />
+              <Text style={styles.btnText}>Admin Panel</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </Layout>
@@ -94,45 +99,45 @@ const Account = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20
+    marginVertical: 20,
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 100,
-    resizeMode: 'contain'
+    resizeMode: "contain",
   },
   name: {
     marginTop: 10,
     marginBottom: 5,
-    fontSize: 20
+    fontSize: 20,
   },
   btnContainer: {
     padding: 10,
     paddingBottom: 30,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     margin: 10,
     marginVertical: 20,
     elevation: 5,
-    borderRadius: 10
+    borderRadius: 10,
   },
   heading: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     paddingBottom: 10,
-    textAlign: 'center',
+    textAlign: "center",
     borderBottomWidth: 1,
-    borderColor: 'lightgray'
+    borderColor: "lightgray",
   },
   btn: {
-    alignItems: 'center',
+    alignItems: "center",
     marginVertical: 10,
     padding: 5,
-    flexDirection: 'row'
+    flexDirection: "row",
   },
   btnText: {
     fontSize: 15,
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
 });
 
 export default Account;
