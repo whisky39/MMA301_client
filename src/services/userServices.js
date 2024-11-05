@@ -17,13 +17,13 @@ export const logoutUser = async () => {
   return res.data;
 };
 
+
 export const userRegister = async (data) => {
-  const res = await axios.post(
-    `${process.env.REACT_APP_API_URL}/user/sign-up`,
-    data
-  );
+  console.log("asdasd")
+  const res = await axios.post(`${port()}/user/create`, data);
   return res?.data;
 };
+
 
 export const getDetailsUser = async (id, access_token) => {
   // thông qua id , và access_token chỉ cho phép get dữ liệu của only user này
