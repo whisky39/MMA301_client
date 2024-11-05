@@ -94,12 +94,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: "bold", // New Add
+    textAlign: "left",
+    marginBottom: 10,
+  },
+  price: {
+    fontSize: 20,
     fontWeight: "bold", // New Add
     textAlign: "left",
   },
   desc: {
-    fontSize: 12,
+    fontSize: 16,
     textTransform: "capitalize",
     textAlign: "justify",
     marginVertical: 12,

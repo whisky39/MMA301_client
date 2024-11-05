@@ -69,7 +69,7 @@ const Product = ({ searchText }) => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: 500,
+    height: 700,
     paddingBottom: 150
   },
   container: {
