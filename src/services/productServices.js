@@ -35,13 +35,13 @@ export const getProductType = async (idP, page, limit) => {
 
 // GET ALL CATEGORY
 export const getAllCategory = async () => {
-  const res = await axios.get(`${"http://192.168.1.7:8080/api"}/cat/get-all`);
+  const res = await axios.get(`${port()}/cat/get-all`);
   return res?.data;
 };
 
 // GET DETAILS PRODUCT BY ID
 export const getDetailsProduct = async (id) => {
-  const res = await axios.get(`${"http://192.168.1.7:8080/api"}/product/${id}`);
+  const res = await axios.get(`${port()}/product/${id}`);
   return res?.data;
 };
 // GET DETAILS PRODUCT BY ID
@@ -50,7 +50,7 @@ export const getProductsByCate = async (cate) => {
   console.log("cate ", cate);
   
   const res = await axios.get(
-    `${"http://192.168.1.7:8080/api"}/product/get/${cate}`
+    `${port()}/product/get/${cate}`
   );
   return res?.data;
 };

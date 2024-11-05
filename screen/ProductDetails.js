@@ -1,9 +1,11 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ProductsData } from "../components/data/ProductsData";
 import { TouchableOpacity } from "react-native";
 import Layout from "../components/Layout/Layout";
 import * as productServices from "../src/services/productServices";
+
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const ProductDetails = ({ route }) => {
   const [pDetails, setPDetails] = useState({});
@@ -50,6 +52,13 @@ const ProductDetails = ({ route }) => {
         <Text style={styles.title}>{pDetails?.name}</Text>
         <Text style={styles.title}>Price: {pDetails?.price} $</Text>
         <Text style={styles.desc}>Price: {pDetails?.description}</Text>
+
+        <YoutubePlayer
+          height={200}
+          videoId={"2qCmRJz3NOE"}
+          play
+        />
+
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.btnCart}
@@ -80,6 +89,10 @@ const styles = StyleSheet.create({
   image: {
     height: 450,
     width: "100%",
+  },
+  backgroundVideo: {
+    width: '100%',
+    height: 200, // Điều chỉnh chiều cao video
   },
   container: {
     marginVertical: 15,
