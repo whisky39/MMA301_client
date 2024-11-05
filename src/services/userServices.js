@@ -34,12 +34,7 @@ export const getDetailsUser = async (id, access_token) => {
   // thông qua id , và access_token chỉ cho phép get dữ liệu của only user này
   try {
     const res = await axiosJWT.get(
-      `${process.env.REACT_APP_API_URL}/user/detail-user/${id}`,
-      {
-        headers: {
-          token: `Bearer ${access_token}`,
-        },
-      }
+      `${port()}/user/profile`
     );
     return res?.data;
   } catch (error) {
@@ -75,13 +70,7 @@ export const getAllUser = async (access_token) => {
 export const updateUser = async (data) => {
   // gọi api / clearCookie("refresh_token") ;
   const res = await axiosJWT.put(
-    `${process.env.REACT_APP_API_URL}/user/update-user/${data?.id}`,
-    data.data,
-    {
-      headers: {
-        token: `Bearer ${data?.access_token}`,
-      },
-    }
+    `${port()}/user/update-profile`, data.data
   );
   return res?.data;
 };

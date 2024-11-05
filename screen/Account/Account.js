@@ -1,28 +1,62 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../components/Layout/Layout'
 import { UserData } from '../../components/data/UserData'
 import { TouchableOpacity } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import { useRoute, useNavigation } from '@react-navigation/native'
+import * as userServices from "../../src/services/userServices";
+import { useFocusEffect } from '@react-navigation/native'
 
 const Account = ({ navigation }) => {
+  const [account, setAccount] = useState(null);
+  const [loading, setLoading] = useState(true); // Biến trạng thái để theo dõi việc tải dữ liệu
+
+  const fetchData = async () => {
+    setLoading(true); // Đánh dấu là bắt đầu tải
+    try {
+      const response = await userServices.getDetailsUser();
+      if (response) {
+        setAccount(response.user); // Cập nhật thông tin tài khoản
+      }
+    } catch (error) {
+      console.error('Error getting profile:', error);
+    } finally {
+      setLoading(false); // Đánh dấu là đã tải xong
+    }
+  };
+
+  // Gọi hàm fetchData khi màn hình được lấy nét
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    }, [])
+  );
+
+  // Kiểm tra nếu đang tải hoặc account chưa có thông tin
+  if (loading) {
+    return <Text>Loading...</Text>; // Hiển thị loading khi đang tải
+  }
+
+  if (!account) {
+    return <Text>No account data found.</Text>; // Hiển thị thông báo nếu không có dữ liệu tài khoản
+  }
+
   return (
     <Layout>
       <View style={styles.container}>
         <Image source={{ uri: UserData.profilePicture }} style={styles.image} />
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.name}>
-            Hi <Text style={{ color: 'green' }}>{UserData.name} ✌️</Text>
+            Hi <Text style={{ color: 'green' }}>{account.name} ✌️</Text>
           </Text>
-          <Text>Email: {UserData.email}</Text>
-          <Text>Contact: {UserData.contact}</Text>
+          <Text>Email: {account.email}</Text>
+          <Text>Contact: {account.contact}</Text>
         </View>
         <View style={styles.btnContainer}>
           <Text style={styles.heading}>Account Settings</Text>
-          
+
           <TouchableOpacity
-            onPress={() => navigation.navigate('profile', { id: UserData._id })}
+            onPress={() => navigation.navigate('profile', { id: account._id })}
             style={styles.btn}
           >
             <AntDesign style={styles.btnText} name='edit' />
@@ -30,7 +64,7 @@ const Account = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate('myOrders', { id: UserData._id })}
+            onPress={() => navigation.navigate('myOrders', { id: account._id })}
             style={styles.btn}
           >
             <AntDesign style={styles.btnText} name='bars' />
@@ -45,8 +79,8 @@ const Account = ({ navigation }) => {
             <Text style={styles.btnText}>Notification</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
-            onPress={() => navigation.navigate('adminPanel', { id: UserData._id })}
+          <TouchableOpacity
+            onPress={() => navigation.navigate('adminPanel', { id: account._id })}
             style={styles.btn}
           >
             <AntDesign style={styles.btnText} name='windows' />
@@ -55,8 +89,8 @@ const Account = ({ navigation }) => {
         </View>
       </View>
     </Layout>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -99,6 +133,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginRight: 10
   }
-})
+});
 
-export default Account
+export default Account;

@@ -6,44 +6,80 @@ import {
   Image,
   Pressable
 } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../components/Layout/Layout'
 import { UserData } from '../../components/data/UserData'
 import InputBox from '../../components/Form/InputBox'
 import { TouchableOpacity } from 'react-native'
+import * as userServices from "../../src/services/userServices";
 
 const Profile = ({ navigation }) => {
-  const [email, setEmail] = useState(UserData.email)
+  const [email, setEmail] = useState('');
+  const [profilePicture, setProfilePicture] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [phone, setPhone] = useState('');
+  const [account, setAccount] = useState(null);
 
-  const [profilePicture, setProfilePicture] = useState(UserData.profilePicture)
-
-  const [password, setPassword] = useState(UserData.password)
-  const [name, setName] = useState(UserData.name)
-  const [address, setAddress] = useState(UserData.address)
-  const [city, setCity] = useState(UserData.city)
-  const [contact, setContact] = useState(UserData.contact)
-
-  const handleUpdate = () => {
-    if (!email || !password || !name || !address || !city || !contact) {
-      return alert('Please provide all fields !')
+  const fetchData = async () => {
+    try {
+      const response = await userServices.getDetailsUser();
+      if (response) {
+        const user = response.user;
+        setAccount(user); // Cập nhật thông tin tài khoản
+        // Khởi tạo các giá trị input từ thông tin người dùng
+        setName(user.name);
+        setEmail(user.email);
+        setProfilePicture(user.profilePicture);
+        setAddress(user.address);
+        setCity(user.city);
+        setPhone(user.phone);
+      }
+    } catch (error) {
+      console.error('Error getting profile:', error);
+    } finally {
+      setLoading(false); // Đánh dấu là đã tải xong
     }
-    alert('Profile Update Successfully')
-    navigation.navigate('account')
-  }
+  };
+
+  // Gọi hàm fetchData khi component được mount
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleUpdate = async () => {
+    if (!name || !address || !city || !phone) {
+      return alert('Please provide all fields !');
+    }
+
+    const data = {
+      data: { name, password, address, city, phone }
+    };
+
+    try {
+      const response = await userServices.updateUser(data);
+      if (response) {
+        alert('Profile Update Successfully');
+        navigation.navigate('account');
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('Failed to update profile. Please try again.');
+    }
+  };
 
   return (
     <Layout>
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.imageContainer}>
-            <Image 
-              style={styles.image} 
-              source={{ uri: profilePicture }} />
-            <Pressable onPress={() => alert('Profile dailogbox')}>
-              <Text style={{ color: 'red' }}>Update your profile picture</Text>
-            </Pressable>
+            <Image
+              style={styles.image}
+              source={{ uri: UserData.profilePicture }} />
           </View>
-          
+
           {/* Allow user update they profile */}
           <InputBox
             value={name}
@@ -51,13 +87,7 @@ const Profile = ({ navigation }) => {
             placeholder={'Enter Your Name'}
             autoComplete={'name'}
           />
-          <InputBox
-            value={email}
-            setValue={setEmail}
-            placeholder={'Enter Your Email'}
-            autoComplete={'email'}
-          />
-          
+
           <InputBox
             value={password}
             setValue={setPassword}
@@ -78,12 +108,12 @@ const Profile = ({ navigation }) => {
             autoComplete={'country'}
           />
           <InputBox
-            value={contact}
-            setValue={setContact}
-            placeholder={'Enter Your Contact'}
+            value={phone}
+            setValue={setPhone}
+            placeholder={'Enter Your Phone'}
             autoComplete={'tel'}
           />
-          
+
           {/* Update Profile Button */}
           <TouchableOpacity
             style={styles.btnUpdate}
