@@ -1,11 +1,12 @@
 import axios from "axios";
+import { port } from "../../ultils";
 export const axiosJWT = axios.create();
 
 export const userLogin = async (data) => {
   try {
 
     const res = await axios.post(
-      `${"http://192.168.1.16:8080/api"}/user/login`,
+      `${port()}/user/login`,
       data
     );
     return res?.data;
@@ -17,7 +18,7 @@ export const userLogin = async (data) => {
 
 export const logoutUser = async () => {
   // gọi api / clearCookie("refresh_token") ;
-  const res = await axios.post(`${"http://192.168.1.16:8080/api"}/user/logout`);
+  const res = await axios.post(`${port()}/user/logout`);
   return res.data;
 };
 

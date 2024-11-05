@@ -1,33 +1,33 @@
-import { View, Text, StyleSheet, TextInput } from 'react-native'
-import React, { useState } from 'react'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { TouchableOpacity } from 'react-native'
 
-const Header = () => {
-  const [searchText, setSearchText] = useState('')
+import { View, Text, StyleSheet, TextInput } from 'react-native';
+import React from 'react';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { TouchableOpacity } from 'react-native';
 
-  //function for Search
+const Header = ({ searchText, setSearchText }) => {
+
+  // Function for Search
   const handleSearch = () => {
-    console.log(searchText)
-    setSearchText("")
-  }
+    console.log(searchText);
+    setSearchText(""); // Clear the input after search if desired
+  };
 
   return (
-    <View style={{ height: 90, backgroundColor: `lightgray` }}>
+    <View style={{ height: 90, backgroundColor: 'lightgray' }}>
       <View style={styles.container}>
         <TextInput 
           style={styles.inputBox} 
           value={searchText} 
           onChangeText={(text) => setSearchText(text)}
           placeholder="Search..."
-          />
+        />
         <TouchableOpacity style={styles.searchBtn} onPress={handleSearch}>
           <FontAwesome name='search' size={20} color='#000' />
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -58,6 +58,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 18
   }
-})
+});
 
-export default Header
+export default Header;
