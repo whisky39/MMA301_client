@@ -46,9 +46,6 @@ export const getDetailsProduct = async (id) => {
 };
 // GET DETAILS PRODUCT BY ID
 export const getProductsByCate = async (cate) => {
-
-  console.log("cate ", cate);
-  
   const res = await axios.get(
     `${port()}/product/get/${cate}`
   );

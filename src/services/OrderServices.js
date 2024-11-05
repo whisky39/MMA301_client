@@ -13,7 +13,17 @@ export const createProduct = async (data) => {
 };
 
 // GET ALL Order
-export const getAllOrder = async () => {
+export const getAllOrder = async (id) => {
   const res = await axios.get(`${port()}/order/admin/get-all-orders`);
   return res?.data;
 };
+
+
+// PUT update order
+export const updateOrder = async (id) => {
+  const res = await axios.put(`${port()}/order/admin/order/${id}`);
+  return res?.data;
+};
+
+
+

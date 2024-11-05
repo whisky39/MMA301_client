@@ -62,6 +62,7 @@ const Checkout = ({ navigation, route }) => {
           );
         }
         Alert.alert(respone.message);
+        navigation.navigate('cart')
       } else {
         Alert.alert(respone.message);
       }
