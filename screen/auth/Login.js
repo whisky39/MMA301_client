@@ -13,7 +13,7 @@ import InputBox from "../../components/Form/InputBox";
 import { login } from "../../redux/features/auth/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useReduxStateHook } from "../../components/hooks/customerHook";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as userServices from "../../src/services/userServices";
 
 const Login = ({ navigation }) => {
@@ -35,7 +35,9 @@ const Login = ({ navigation }) => {
     }
     const data = { email, password };
     const respone = await userServices.userLogin(data);
+
     if (respone.status === "OK") {
+      await AsyncStorage.setItem('userInfo' , JSON.stringify(respone));
       navigation.navigate("home");
       setEmail("");
       setPassword("");
@@ -45,7 +47,7 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image source={{ uri: loginImage }} style={styles.image} />
-      {loading && <Text>loading ...</Text>}
+      {/* {loading && <Text>loading ...</Text>} */}
       <InputBox
         placeholder="Enter Your Email"
         autoComplete={"email"}

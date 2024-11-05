@@ -53,7 +53,7 @@ const Cart = ({ navigation }) => {
       <View style={styles.Actions}>
         <TouchableOpacity
           style={styles.btnCheckout}
-          onPress={() => navigation.navigate("checkout")}
+          onPress={() => navigation.navigate("checkout" , {item})}
         >
           <Text style={styles.btnCheckoutText}>CHECKOUT</Text>
         </TouchableOpacity>
