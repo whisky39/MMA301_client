@@ -30,6 +30,8 @@ const ProductCategories = () => {
       const matchData = danhSachSanPham.filter(
         (sanpham) => sanpham.category.toLowerCase() === category
       );
+
+      console.log("matchData ", matchData[0]?.images);
       setProducts(matchData);
     }
   }, [danhSachSanPham]);

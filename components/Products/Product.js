@@ -4,6 +4,7 @@ import React, { useState, useCallback } from "react";
 import ProductsCard from "./ProductsCard";
 import * as productServices from "../../src/services/productServices";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Product = ({ searchText }) => {
   const [products, setProducts] = useState([]);
@@ -15,6 +16,8 @@ const Product = ({ searchText }) => {
       setLoading(true);
       const fetchData = await productServices.getAllProduct();
       setProducts(fetchData.products);
+      // save data in AsyncStore
+      AsyncStorage.setItem('products' , JSON.stringify(fetchData.products))
     } catch (err) {
       console.error(err);
       setError("Có lỗi xảy ra khi lấy sản phẩm.");
