@@ -50,8 +50,8 @@ const ProductDetails = ({ route }) => {
 
       <View style={styles.container}>
         <Text style={styles.title}>{pDetails?.name}</Text>
-        <Text style={styles.title}>Price: {pDetails?.price}</Text>
-        <Text style={styles.desc}>Price: {pDetails?.description}</Text>
+        <Text style={styles.price}>Price: {pDetails?.price}</Text>
+        <Text style={styles.desc}>Description: {pDetails?.description}</Text>
 
         <View style={styles.btnContainer}>
           <TouchableOpacity
@@ -93,12 +93,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: "bold", // New Add
+    textAlign: "left",
+    marginBottom: 10,
+  },
+  price: {
+    fontSize: 20,
     fontWeight: "bold", // New Add
     textAlign: "left",
   },
   desc: {
-    fontSize: 12,
+    fontSize: 16,
     textTransform: "capitalize",
     textAlign: "justify",
     marginVertical: 12,

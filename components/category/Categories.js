@@ -4,7 +4,8 @@ import { TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native'
 
 import { categoriesData } from '../data/CategoriesData'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+// import AntDesign from 'react-native-vector-icons/AntDesign'
+import FontAwesome from 'react-native-vector-icons/FontAwesome6';
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 
 import * as productServices from "../../src/services/productServices";
@@ -24,7 +25,7 @@ const Categories = () => {
             style={styles.catContainer}
             onPress={() => navigation.navigate('productCategory', { categoryName: item.name })} // Điều hướng và truyền tên category
           >
-            <AntDesign name={item.icon} style={styles.catIcon} />
+            <FontAwesome name={item.icon} style={styles.catIcon} />
             <Text style={styles.catTitle}>{item.name}</Text>
           </TouchableOpacity>
         ))}
@@ -38,16 +39,18 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#ffffff',
     padding: 5,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   catContainer: {
-    padding: 15,
+    padding: 10,
+    marginLeft: 16,
     justifyContent: 'center',
     alignItems: 'center'
   },
   catIcon: {
     fontSize: 30,
     verticalAlign: 'top',
+    marginBottom: 10,
   },
   catTitle: {
     fontSize: 15,
