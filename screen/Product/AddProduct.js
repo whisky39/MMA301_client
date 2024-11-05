@@ -124,7 +124,7 @@ const AddProductScreen = () => {
             paddingBottom: 10,
             marginBottom: 10,
           }}
-          placeholder="Stock"
+          placeholder="Status"
           value={stock}
           onChangeText={setStock}
           keyboardType="numeric"

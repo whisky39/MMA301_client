@@ -29,6 +29,7 @@ import CategoryManager from "./screen/Product/CategoryManager";
 import UpdateProduct from "./screen/Product/UpdateProduct";
 
 import ProductCategories from "./screen/ProductCategories";
+import OrderManagement from './screen/orders/ordersManagement';
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -62,6 +63,11 @@ export default function App() {
             name="myOrders"
             component={MyOrders}
             options={{ headerTitle: "My orders" }} />
+
+          <Stack.Screen
+            name="orders-management"
+            component={OrderManagement}
+            options={{ headerTitle: "Orders Management" }} /> 
 
           <Stack.Screen
             name="profile"
