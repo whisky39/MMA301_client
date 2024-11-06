@@ -72,14 +72,6 @@ const Account = ({ navigation }) => {
             <AntDesign style={styles.btnText} name="bars" />
             <Text style={styles.btnText}>My Orders</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate("notifications")}
-            style={styles.btn}
-          >
-            <AntDesign style={styles.btnText} name="bells" />
-            <Text style={styles.btnText}>Notification</Text>
-          </TouchableOpacity>
           {account?.role === "admin" && (
             <TouchableOpacity
               onPress={() =>
