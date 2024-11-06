@@ -7,8 +7,9 @@ import { format } from "date-fns-tz";
 import { parseISO } from "date-fns"; // Import parseISO directly from date-fns
 
 export const port = () => {
-    return 'http://192.168.1.21:8080/api'
-}
+  return "http://192.168.1.8:8080/api";
+};
+
 
 
 export const converMoney = (price) => {

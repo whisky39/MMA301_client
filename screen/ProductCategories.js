@@ -4,6 +4,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import * as productServices from "../src/services/productServices";
 import ProductsCard from "../components/Products/ProductsCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Layout from "../components/Layout/Layout";
+import Categories from "../components/category/Categories";
 
 const ProductCategories = () => {
   const navigation = useNavigation();
@@ -56,22 +58,24 @@ const ProductCategories = () => {
   );
 
   return (
-    <View style={styles.mainContainer}>
-      <FlatList
-        data={products}
-        renderItem={renderItem}
-        keyExtractor={(item) => item._id}
-        numColumns={2}
-        columnWrapperStyle={styles.container}
-      />
-    </View>
+    <Layout>
+      <Categories/>
+      <View style={styles.mainContainer}>
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={(item) => item._id}
+          numColumns={2}
+          columnWrapperStyle={styles.container}
+        />
+      </View>
+    </Layout>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: 700,
-
+    height: 970,
     paddingBottom: 150,
   },
   container: {

@@ -32,6 +32,7 @@ const MyOrders = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
+    height: 640,
   },
   heading: {
     textAlign: "center",

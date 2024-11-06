@@ -26,4 +26,12 @@ export const updateOrder = async (id) => {
 };
 
 
+// PUT update order
+export const removeOrder = async (id) => {
+  const res = await axios.delete(`${port()}/order/admin/order/${id}`);
+  return res?.data;
+};
+
+
+
 
